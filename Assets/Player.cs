@@ -18,10 +18,11 @@ public class Player : MonoBehaviour
     public float volume = 1f;
     public bool enableJump = true;
     public float jumpPower = 5f;
-    public float crouchScale = 0.6f;
+    public float crouchScale = 1.5f;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode runKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
+    public Camera playerCamera;
 
     private bool isJumping;
     private bool isGrounded;
@@ -56,18 +57,33 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void LateUpdate()
+    {
+        RaycastHit hit;
+        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        //Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red);
+        if (Physics.Raycast(ray, out hit, 5f))
+        {
 
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            if (interactable != null)
+            {
+                if (Input.GetMouseButton(0))
+                {
+                    interactable.Interact(hit.transform.tag);
+                }
+            }
+        }
+    }
     void FixedUpdate()
     {
-        
-        
         float moveSpeed = walkSpeed;
 
         if (playerInput != Vector3.zero && isGrounded)
         {
             if (Input.GetKey(runKey))
             {
-                moveSpeed *= 1.5f;
+                moveSpeed *= 2f;
             }
             else
             {
@@ -78,11 +94,12 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    transform.localScale = new Vector3(1f, 1f, 1f);
+                    transform.localScale = new Vector3(1f, 3f, 1f);
                 }
             }
         }
 
+        
         playerInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         playerInput = transform.TransformDirection(playerInput) * moveSpeed;
 
@@ -97,7 +114,7 @@ public class Player : MonoBehaviour
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
         Vector3 direction = transform.TransformDirection(Vector3.down);
-        float distance = .75f;
+        float distance = 2f;
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance))
         {
