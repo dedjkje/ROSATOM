@@ -6,6 +6,12 @@ TagManager:
   tags:
   - tumblerLeft
   - polzunokLeft
+  - ROSATOMroom
+  - krugLeft
+  - buttonLeft
+  - buttonRight
+  - polzunokRight
+  - tumblerRight
   layers:
   - Default
   - TransparentFX

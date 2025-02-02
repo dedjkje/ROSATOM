@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -23,12 +24,27 @@ public class Player : MonoBehaviour
     public KeyCode runKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
     public Camera playerCamera;
-
+    DataBase data;
     private bool isJumping;
     private bool isGrounded;
+    public Animator animatorButtonRight;
 
+    public GameObject leftTumbler;
+    public GameObject leftPolzunok;
+    public GameObject leftKrug;
+    public GameObject leftButton;
+    public GameObject rightTumbler;
+    public GameObject rightPolzunok;
+    public GameObject rightButton;
+
+    private void Start()
+    {
+        data = GameObject.FindWithTag("ROSATOMroom").GetComponent<DataBase>();
+    }
     private void Update()
     {
+        
+           
         volume = pause.volumeSlider.value;
         if (enableJump && Input.GetKeyDown(jumpKey) && isGrounded)
         {
@@ -59,18 +75,128 @@ public class Player : MonoBehaviour
     }
     private void LateUpdate()
     {
+        leftTumbler.SetActive(false);
+        leftPolzunok.SetActive(false);
+        leftKrug.SetActive(false);
+        leftButton.SetActive(false);
+        rightTumbler.SetActive(false);
+        rightButton.SetActive(false);
+        rightPolzunok.SetActive(false);
+
         RaycastHit hit;
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        //Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * 5f, Color.red);
         if (Physics.Raycast(ray, out hit, 5f))
         {
-
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-            if (interactable != null)
+            if (hit.transform.tag == "tumblerLeft")
             {
+                leftTumbler.SetActive(true);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (data.tumblerLeft)
+                    {
+                        data.tumblerLeft = false;
+                    }
+                    else
+                    {
+                        data.tumblerLeft = true;
+                    }
+                }
+                
+            }
+            if (hit.transform.tag == "tumblerRight")
+            {
+                rightTumbler.SetActive(true);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    if (data.tumblerRight)
+                    {
+                        data.tumblerRight = false;
+                    }
+                    else
+                    {
+                        data.tumblerRight = true;
+                    }
+                }
+            }
+            if (hit.transform.tag == "polzunokLeft")
+            {
+                leftPolzunok.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (data.polzunokLeft != 1)
+                    {
+                        data.polzunokLeft--;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (data.polzunokLeft != 3)
+                    {
+                        data.polzunokLeft++;
+                    }
+                }
+            }
+            if (hit.transform.tag == "polzunokRight")
+            {
+                rightPolzunok.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (data.polzunokRight != 1)
+                    {
+                        data.polzunokRight--;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (data.polzunokRight != 3)
+                    {
+                        data.polzunokRight++;
+                    }
+                }
+            }
+            if (hit.transform.tag == "krugLeft")
+            {
+                leftKrug.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    if (data.krugLeft != 1)
+                    {
+                        data.krugLeft--;
+                    }
+                }
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (data.krugLeft != 3)
+                    {
+                        data.krugLeft++;
+                    }
+                }
+            }
+            if (hit.transform.tag == "buttonLeft")
+            {
+                leftButton.SetActive(true);
                 if (Input.GetMouseButton(0))
                 {
-                    interactable.Interact(hit.transform.tag);
+                    data.buttonLeft = true;
+                }
+                else
+                {
+                    data.buttonLeft = false;
+                }
+            }
+            else
+            {
+                data.buttonLeft = false;
+
+            }
+            if (hit.transform.tag == "buttonRight")
+            {
+                rightButton.SetActive(true);
+                if (Input.GetMouseButton(0))
+                {
+                    // Смена фильтров
+                    animatorButtonRight.SetTrigger("tap");
                 }
             }
         }
