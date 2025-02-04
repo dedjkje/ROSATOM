@@ -6,10 +6,13 @@ public class DataBase : MonoBehaviour
 {
     public bool tumblerLeft = false;
     public bool tumblerRight = false;
-    public int polzunokLeft = 1;
-    public int polzunokRight = 1;
+    public int polzunokLeft = 2;
+    public int polzunokRight = 2;
     public int krugLeft = 2;
     public bool buttonLeft = false;
+
+    [SerializeField]
+    CalculationFormulas calculationFormulas;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,7 @@ public class DataBase : MonoBehaviour
     {
         if (polzunokLeft == 1)
         {
+            calculationFormulas.tempReactor -= 0.2f;
             transform.Find("Ползунок(гл. ч.)").transform.localPosition = new Vector3(5.57000017f, 3.79854393f, 0.100000001f);
         }
         if (polzunokLeft == 2)
@@ -30,6 +34,7 @@ public class DataBase : MonoBehaviour
         }
         if (polzunokLeft == 3)
         {
+            calculationFormulas.tempReactor += 0.2f;
             transform.Find("Ползунок(гл. ч.)").transform.localPosition = new Vector3(4.3579998f, 3.79854393f, -0.600000024f);
         }
 
@@ -61,11 +66,13 @@ public class DataBase : MonoBehaviour
 
         if(tumblerLeft)
         {
-            GameObject.FindWithTag("ROSATOMroom").transform.Find("Тумблер").transform.rotation = new Quaternion(-0.527202964f, -1.52736888e-07f, -0.304380655f, 0.793353319f);
+            calculationFormulas.poolVolume += 0.4f;
+
+            GameObject.FindWithTag("ROSATOMroom").transform.Find("Тумблер").transform.rotation = new Quaternion(-0.608761549f, -0.396676511f, -1.04308128e-07f, 0.687064171f);
         }
         else
         {
-            GameObject.FindWithTag("ROSATOMroom").transform.Find("Тумблер").transform.rotation = new Quaternion(-0.608761549f, -0.396676511f, -1.04308128e-07f, 0.687064171f);
+            GameObject.FindWithTag("ROSATOMroom").transform.Find("Тумблер").transform.rotation = new Quaternion(-0.527202964f, -1.52736888e-07f, -0.304380655f, 0.793353319f);
         }
         if (tumblerRight)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,14 +26,14 @@ public class CalculationFormulas : MonoBehaviour
     private double w = 0.015;
     private double l = 0.035;
 
-    public int tempReactor = 550;
-    public int contourPressure = 95;
-    public int poolVolume = 4200;
-    public int turbineSpeed = 2100;
+    public float tempReactor = 550;
+    public float contourPressure = 95;
+    public float poolVolume = 4200;
+    public float turbineSpeed = 2100;
     public double radiationAround = 0.3;
-    public int coolingSystem = 85;
-    public int liquidSupply = 7500;
-    public int energyConsumption = 35;
+    public float coolingSystem = 85;
+    public float liquidSupply = 7500;
+    public float energyConsumption = 35;
 
     public int timePool = 0;
     public int timeLiquid = 0;
@@ -69,23 +70,23 @@ public class CalculationFormulas : MonoBehaviour
         energyConsumption = startingEnergy + w * turbineSpeed;
     }
 
-    private void OutputPower(int value) {
+    private void OutputPower(float value) {
 
         int percent = (int)((float)value / 900f * 100f);
         PowerText.text = $"Мощность:       |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputWaterLevel (int value) {
+    private void OutputWaterLevel (float value) {
         int percent = (int)((float)value / 4200f * 100f);
         WaterLevelText.text = $"Уровень воды: |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputPressure (int value) {
+    private void OutputPressure (float value) {
         int percent = (int)((float)value / 180f * 100f);
         PressureText.text = $"Давление:        |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputSpeed (int value) {
+    private void OutputSpeed (float value) {
         int percent = (int)((float)value / 2900f * 100f);
         SpeedText.text = $"Турбины:          |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
@@ -95,22 +96,22 @@ public class CalculationFormulas : MonoBehaviour
         RadiationText.text = $"Радиация:               |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputCoolingSystem (int value) {
+    private void OutputCoolingSystem (float value) {
         int percent = (int)((float)value / 100f * 100f);
         CoolingSystemText.text = $"Охлаждение:          |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputCoolingLiquid (int value) {
+    private void OutputCoolingLiquid (float value) {
         int percent = (int)((float)value / 7500f * 100f);
         CoolingLiquidText.text = $"Уровень топлива: |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputEnergy (int value) {
+    private void OutputEnergy (float value) {
         int percent = (int)((float)value / 75f * 100f);
         EnergyConsumptionText.text = $"Энергия:                 |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    void Start () {
+    void Update () {
         OutputPower(tempReactor);
         OutputWaterLevel(poolVolume);
         OutputPressure(contourPressure);
