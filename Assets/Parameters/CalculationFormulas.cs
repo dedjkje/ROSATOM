@@ -100,7 +100,7 @@ public class CalculationFormulas : MonoBehaviour
         int percent = (int)((float)value / 100f * 100f);
         CoolingSystemText.text = $"Охлаждение:          |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
-
+    //антон лох
     private void OutputCoolingLiquid (float value) {
         int percent = (int)((float)value / 7500f * 100f);
         CoolingLiquidText.text = $"Уровень топлива: |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";

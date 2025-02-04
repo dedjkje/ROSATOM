@@ -17,12 +17,12 @@ public class DataBase : MonoBehaviour
 
     [SerializeField]
     CalculationFormulas calculationFormulas;
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -50,16 +50,22 @@ public class DataBase : MonoBehaviour
         if (polzunokRight == 1)
         {
             transform.Find("Ползунок(гл. ч.).001").transform.localPosition = new Vector3(-4.80600023f, 3.74650908f, -0.456f);
-            calculationFormulas.turbineSpeed -= 0.6f;
+            calculationFormulas.turbineSpeed -= 0.3f;
+            calculationFormulas.coolingSystem -= 0.01f;
+            calculationFormulas.liquidSupply -= 0.05f;
         }
         if (polzunokRight == 2)
         {
             transform.Find("Ползунок(гл. ч.).001").transform.localPosition = new Vector3(-5.40779352f, 3.74650908f, -0.108942963f);
+            calculationFormulas.coolingSystem += 0.005f;
+            calculationFormulas.liquidSupply -= 0.1f;
         }
         if (polzunokRight == 3)
         {
             transform.Find("Ползунок(гл. ч.).001").transform.localPosition = new Vector3(-6.00699997f, 3.74650908f, 0.237000003f);
-            calculationFormulas.turbineSpeed += 0.6f;
+            calculationFormulas.turbineSpeed += 0.3f;
+            calculationFormulas.coolingSystem += 0.02f;
+            calculationFormulas.liquidSupply -= 0.15f;
         }
 
         if (krugLeft == 1)
@@ -78,7 +84,7 @@ public class DataBase : MonoBehaviour
             calculationFormulas.turbineSpeed += 1f;
         }
 
-        if(tumblerLeft)
+        if (tumblerLeft)
         {
             calculationFormulas.poolVolume += 0.4f;
 
@@ -92,6 +98,7 @@ public class DataBase : MonoBehaviour
         if (tumblerRight)
         {
             GameObject.FindWithTag("ROSATOMroom").transform.Find("Тумблер.001").transform.rotation = new Quaternion(0.345815271f, 0.776155889f, -0.372770309f, 0.372875601f);
+            calculationFormulas.liquidSupply += 0.6f;
         }
         else
         {
@@ -197,6 +204,36 @@ public class DataBase : MonoBehaviour
         if (calculationFormulas.radiationAround < 3)
         {
             // плаки плаки
+        }
+
+        if (calculationFormulas.coolingSystem > 100 || calculationFormulas.coolingSystem < 40)
+        {
+            // плаки плаки
+        }
+        if (calculationFormulas.coolingSystem < 70)
+        {
+            calculationFormulas.CoolingSystemText.color = Color.red;
+        }
+        else
+        {
+            calculationFormulas.CoolingSystemText.color = Color.green;
+        }
+
+        if (calculationFormulas.liquidSupply < 5000)
+        {
+            calculationFormulas.CoolingLiquidText.color = Color.red;
+        }
+        if (calculationFormulas.liquidSupply > 6700)
+        {
+            calculationFormulas.CoolingLiquidText.color = Color.red;
+        }
+        if (calculationFormulas.liquidSupply > 5000 && calculationFormulas.liquidSupply < 6700)
+        {
+            calculationFormulas.CoolingLiquidText.color = Color.green;
+        }
+        if (calculationFormulas.liquidSupply < 3000 || calculationFormulas.liquidSupply > 7000)
+        {
+            //плаки плаки
         }
     }
 }
