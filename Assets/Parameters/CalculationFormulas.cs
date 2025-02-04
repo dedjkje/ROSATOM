@@ -26,7 +26,7 @@ public class CalculationFormulas : MonoBehaviour
     private double w = 0.015;
     private double l = 0.035;
 
-    public float tempReactor = 550;
+    public float tempReactor = 700;
     public float contourPressure = 95;
     public float poolVolume = 4200;
     public float turbineSpeed = 2100;

@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     public GameObject rightPolzunok;
     public GameObject rightButton;
 
+    [SerializeField] CalculationFormulas calculationFormulas;
+
     private void Start()
     {
         data = GameObject.FindWithTag("ROSATOMroom").GetComponent<DataBase>();
@@ -197,6 +199,7 @@ public class Player : MonoBehaviour
                 {
                     // Смена фильтров
                     animatorButtonRight.SetTrigger("tap");
+                    calculationFormulas.radiationAround = 5f;
                 }
             }
         }
@@ -205,7 +208,7 @@ public class Player : MonoBehaviour
     {
         float moveSpeed = walkSpeed;
 
-        if (playerInput != Vector3.zero && isGrounded)
+        if (playerInput != Vector3.zero)
         {
             if (Input.GetKey(runKey))
             {
