@@ -1,12 +1,16 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+
     public Pause pause;
     public CameraRotation cameraRotation;
-
+    public CalculationFormulas a;
+    public TimerScript b;
     public Canvas pauseMenu;
     public bool onPause = false;
 
@@ -36,12 +40,15 @@ public class Player : MonoBehaviour
     public GameObject rightTumbler;
     public GameObject rightPolzunok;
     public GameObject rightButton;
+    public float time;
 
     [SerializeField] CalculationFormulas calculationFormulas;
 
     private void Start()
     {
         data = GameObject.FindWithTag("ROSATOMroom").GetComponent<DataBase>();
+        time = Time.timeScale;
+        Time.timeScale = 1f;
     }
     private void Update()
     {
@@ -64,6 +71,7 @@ public class Player : MonoBehaviour
                 onPause = false;
                 cameraRotation.enabled = true;
                 pauseMenu.enabled = false;
+                Time.timeScale = 1f;
             }
             else
             {
@@ -72,6 +80,7 @@ public class Player : MonoBehaviour
                 onPause = true;
                 cameraRotation.enabled = false;
                 pauseMenu.enabled = true;
+                Time.timeScale = 0f;
             }
         }
     }
@@ -265,5 +274,26 @@ public class Player : MonoBehaviour
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
         }
+    }
+
+    public void onRestart()
+    {
+        SceneManager.LoadScene("OutdoorsScene");
+    }
+    public void onMenu()
+    {
+        a.tempReactor = 700;
+        a.contourPressure = 120;
+        a.poolVolume = 3800;
+        a.turbineSpeed = 2500;
+        a.radiationAround = 5;
+        a.coolingSystem = 90;
+        a.liquidSupply = 6500;
+        a.energyConsumption = 40;
+        b.secondsToWin = 180;
+        Time.timeScale = 1f;
+        SceneManager.UnloadSceneAsync("OutdoorsScene");
+        SceneManager.LoadScene("menu");
+        
     }
 }

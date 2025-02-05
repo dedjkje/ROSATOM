@@ -38,6 +38,11 @@ public class CalculationFormulas : MonoBehaviour
     public int timePool = 0;
     public int timeLiquid = 0;
 
+    public void Start()
+    {
+        
+    }
+
     private void CalculateDeltaT(ref double tempReactor, int startingTemp, double k, double contourPressure) {
         tempReactor = startingTemp + k * contourPressure;
     }
