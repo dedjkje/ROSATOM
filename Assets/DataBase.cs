@@ -58,13 +58,15 @@ public class DataBase : MonoBehaviour
         {
             transform.Find("Ползунок(гл. ч.).001").transform.localPosition = new Vector3(-4.80600023f, 3.74650908f, -0.456f);
             calculationFormulas.turbineSpeed -= 0.3f / 1.5f;
-            calculationFormulas.coolingSystem += 0.01f / 1.5f;
+            if (calculationFormulas.coolingSystem < 100)
+                calculationFormulas.coolingSystem += 0.01f / 1.5f;
             calculationFormulas.liquidSupply -= 0.05f / 1.5f;
         }
         if (polzunokRight == 2)
         {
             transform.Find("Ползунок(гл. ч.).001").transform.localPosition = new Vector3(-5.40779352f, 3.74650908f, -0.108942963f);
-            calculationFormulas.coolingSystem += 0.005f / 1.5f;
+            if (calculationFormulas.coolingSystem < 100)
+                calculationFormulas.coolingSystem += 0.005f / 1.5f;
             calculationFormulas.liquidSupply -= 0.1f / 1.5f;
         }
         if (polzunokRight == 3)
@@ -213,7 +215,7 @@ public class DataBase : MonoBehaviour
             Lose();
         }
 
-        if (calculationFormulas.coolingSystem > 100 || calculationFormulas.coolingSystem < 40)
+        if (calculationFormulas.coolingSystem < 40)
         {
             Lose();
         }

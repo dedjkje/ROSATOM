@@ -13,7 +13,6 @@ public class CalculationFormulas : MonoBehaviour
     public Text RadiationText;
     public Text CoolingSystemText;
     public Text CoolingLiquidText;
-    public Text EnergyConsumptionText;
     private double k = 0.05;
     private double m = 0.15;
     private int n = 30;
@@ -111,10 +110,7 @@ public class CalculationFormulas : MonoBehaviour
         CoolingLiquidText.text = $"Уровень топлива: |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
     }
 
-    private void OutputEnergy (float value) {
-        int percent = (int)((float)value / 75f * 100f);
-        EnergyConsumptionText.text = $"Энергия:                 |[{new string('=', percent / 20)}{new string(' ', 5 - percent / 20)}] {percent}% |";
-    }
+    
 
     void Update () {
         OutputPower(tempReactor);
@@ -124,7 +120,6 @@ public class CalculationFormulas : MonoBehaviour
         OutputRadiation(radiationAround);
         OutputCoolingSystem(coolingSystem);
         OutputCoolingLiquid(liquidSupply);
-        OutputEnergy(energyConsumption);
     }
 
 
